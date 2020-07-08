@@ -1,52 +1,38 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Green Tunnel</title>
+        <link rel="stylesheet" href="styles/css-reset.css">
+        <link rel="stylesheet" href="styles/fonts.css">
+        <link rel="stylesheet" href="styles/main.css">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Green Tunnel</title>
-    <link rel="stylesheet" href="styles/css-reset.css">
-    <link rel="stylesheet" href="styles/fonts.css">
-    <link rel="stylesheet" href="styles/main.css">
+        <script>window.$ = window.jQuery = require('jquery');</script>
+        <script type ="text/javascript" src="./scripts/main.js"></script>
+    </head>
 
-    <script>
-        window.$ = window.jQuery = require('jquery');
-    </script>
-    <script type="text/javascript" src="./scripts/main.js"></script>
-</head>
-
-<body>
-    <div class="title-bar">
-        <img id="close-button" src="./images/cancel.png" class="close-button" alt="">
-    </div>
-
-    <div class="center">
-        <div class="title toggle red">
-            <h1>Laven Tune</h1>
+    <body>
+        <div class="title-bar">
+            <img id="close-button" src="./images/cancel.png" class="close-button" alt="">
         </div>
 
-        <img class="logo" src="./images/LavenSTLogo2020.svg" alt="">
+        <div class="center">
+            <div class="title toggle red">
+                <h1>Laven Tune</h1>
+            </div>
 
-        <label class="form-switch">
-            <input type="checkbox" id="on-off-button" class="status-container toggle red">
-            <i></i>
-        </label>
-        <h2 id="status-off-on">DISCONNECTED</h2>
-    </div>
+            <img class="logo" src="./images/LavenSTLogo2020.svg" alt="">
 
-    <div class="mark">
-        <span>Designed by Laven Studio</span>
-    </div>
+            <label class="form-switch">
+                <input type="checkbox" id="on-off-button" class="status-container toggle red">
+                <i></i>
+              </label>
+              <h2 id="status-off-on">DISCONNECTED</h2>
+        </div>
 
+        <div class="mark">
+            <span>Designed by Laven Studio</span>
+        </div>
 
-    <div id="notification" class="hidden">
-        <p id="message"></p>
-        <button id="close-button" onClick="closeNotification()">
-            Close
-        </button>
-        <button id="restart-button" onClick="restartApp()" class="hidden">
-            Restart
-        </button>
-    </div>
-</body>
-
+    </body>
 </html>

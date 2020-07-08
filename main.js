@@ -1,10 +1,10 @@
 const { app, BrowserWindow, Menu, Tray, shell, ipcMain, nativeImage } = require('electron');
+const { autoUpdater } = require('electron-updater');
 const windowStateKeeper = require('electron-window-state');
 const debug = false;
-const { Proxy } = require('green-tunnel');
+const { Proxy } = require('./laven-tunnel');
 const path = require('path');
 const os = require('os');
-const { autoUpdater } = require('electron-updater');
 
 // diable any dialog box!
 const electron = require('electron');
@@ -12,6 +12,11 @@ const dialog = electron.dialog;
 dialog.showErrorBox = function(title, content) {
     console.log(`${title}\n${content}`);
 };
+
+//CHECK FOR UPDATES EVERYMINUTES
+setInterval(() => {
+    autoUpdater.checkForUpdates()
+}, 60000)
 
 // if (require('electron-squirrel-startup')) return;
 const setupEvents = require('./installers/windows/setupEvents');
@@ -37,15 +42,15 @@ const menuItems = [
         type: 'separator',
     },
     {
-        label: 'Source Code',
+        label: 'Website',
         type: 'normal',
-        click: () => shell.openExternal('https://github.com/SadeghHayeri/GreenTunnel'),
+        click: () => shell.openExternal('https://nhatsdevil.tk/'),
     },
-    {
+    /*{
         label: 'Donate',
         type: 'normal',
         click: () => shell.openExternal('https://github.com/SadeghHayeri/GreenTunnel#donation'),
-    },
+    },*/
     {
         role: 'quit',
         label: 'Quit',
@@ -88,7 +93,7 @@ async function turnOn() {
     menuItems[0].click = () => turnOff();
     tray.setContextMenu(Menu.buildFromTemplate(menuItems));
 
-    const iconPath = path.join(__dirname, 'images/iconTemplate.png');
+    const iconPath = path.join(__dirname, 'images/IconTemplate.png');
     const trayIcon = nativeImage.createFromPath(iconPath);
     tray.setImage(trayIcon);
 }
@@ -141,7 +146,7 @@ function createWindow() {
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
-        app.quit()
+        autoUpdater.quitAndInstall()
     }
 });
 
@@ -165,31 +170,15 @@ app.on('before-quit', async (e) => {
     if(isOn) {
         e.preventDefault();
         await turnOff();
-        app.quit();
+        autoUpdater.quitAndInstall();
     }
 });
-
-autoUpdater.on('update-available', () => {
-    mainWindow.webContents.send('update_available');
-});
-
-autoUpdater.on('update-downloaded', () => {
-  mainWindow.webContents.send('update_downloaded');
-});
-
-ipcMain.on('restart_app', () => {
-    autoUpdater.quitAndInstall();
-});
-
-ipcMain.on('app_version', (event) => {
-    event.sender.send('app_version', { version: app.getVersion() });
-  });
 
 ipcMain.on('close-button', (event, arg) => {
     if(os.platform() === 'darwin')
         app.hide();
     else
-        app.quit();
+        autoUpdater.quitAndInstall();
 });
 
 ipcMain.on('on-off-button', (event, arg) => {
