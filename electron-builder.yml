@@ -1,0 +1,4 @@
+appId: com.lavensoft.LavenTune
+publish:
+  provider: github
+  token: [9174350e2fd969502dd394aa995e2498232bb1da]
