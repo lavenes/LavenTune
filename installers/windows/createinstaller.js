@@ -14,12 +14,12 @@ function getInstallerConfig () {
     const outPath = path.join(rootPath, 'release-builds');
 
     return Promise.resolve({
-        appDirectory: path.join(outPath, 'green-tunnel-win32-ia32'),
-        authors: 'Sadegh Hayeri',
+        appDirectory: path.join(outPath, 'LavenTune-win32-ia32'),
+        authors: 'Laven Studio',
         noMsi: true,
-        outputDirectory: path.join(outPath, 'green-tunnel/windows-installer'),
-        exe: 'green-tunnel.exe',
-        setupExe: 'green-tunnel-installer.exe',
+        outputDirectory: path.join(outPath, 'LavenTune/windows-installer'),
+        exe: 'LavenTune.exe',
+        setupExe: 'LavenTune-installer.exe',
         setupIcon: path.join(rootPath, 'icons', 'win', 'icon.ico')
     })
 }

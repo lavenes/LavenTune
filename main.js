@@ -1,5 +1,4 @@
 const { app, BrowserWindow, Menu, Tray, shell, ipcMain, nativeImage } = require('electron');
-const { autoUpdater } = require('electron-updater');
 const windowStateKeeper = require('electron-window-state');
 const debug = false;
 const { Proxy } = require('./laven-tunnel');
@@ -12,11 +11,6 @@ const dialog = electron.dialog;
 dialog.showErrorBox = function(title, content) {
     console.log(`${title}\n${content}`);
 };
-
-//CHECK FOR UPDATES EVERYMINUTES
-setInterval(() => {
-    autoUpdater.checkForUpdates()
-}, 60000)
 
 // if (require('electron-squirrel-startup')) return;
 const setupEvents = require('./installers/windows/setupEvents');
@@ -133,7 +127,6 @@ function createWindow() {
         win.show();
         win.focus();
         turnOn();
-        autoUpdater.checkForUpdatesAndNotify();
     });
 
     win.on('closed', () => {
@@ -146,7 +139,7 @@ function createWindow() {
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
-        autoUpdater.quitAndInstall()
+        
     }
 });
 
@@ -170,7 +163,6 @@ app.on('before-quit', async (e) => {
     if(isOn) {
         e.preventDefault();
         await turnOff();
-        autoUpdater.quitAndInstall();
     }
 });
 
@@ -178,7 +170,9 @@ ipcMain.on('close-button', (event, arg) => {
     if(os.platform() === 'darwin')
         app.hide();
     else
-        autoUpdater.quitAndInstall();
+        {
+            app.quit();
+        }
 });
 
 ipcMain.on('on-off-button', (event, arg) => {

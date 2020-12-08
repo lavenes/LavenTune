@@ -28,7 +28,6 @@
   "dependencies": {
     "electron-updater": "^4.3.1",
     "electron-window-state": "^5.0.3",
-    "esm": "^3.2.25",
     "jquery": ">=3.4.0",
     "uuid": "^8.2.0"
   }
